@@ -1,7 +1,8 @@
 +============================================================================+
 | Softbot Evolution                                                          |
 | Nick Cheney                                                                |
-| 2014-08-25                                                                 |
+| contact: nac93@cornell.edu, http://www.ncheney.com/info/contact/	     |
+| 2014-08-25								     |
 |                                                                            |
 | please cite the following paper when using this code:                      |
 |                                                                            |
@@ -114,6 +115,6 @@ Some common files that you might want to change at some point are:
 
 In general:
 hyperneat/HyperNEAT/Hypercube_NEAT/src/Experiments/HCUBE_SoftbotsExperiment.cpp:   	describes the setup and execution of the experiment (evaluation of individuals)
-softbotsExperiment.dat:																describes the configuration of parameters for evolution
-hyperneat/HyperNEAT/NEAT:															describes the evolutionary algorithm
-voxcad-code-2014/Voxelyze:															describes the soft body physics and execution of the fitness evaluation
+softbotsExperiment.dat:									describes the configuration of parameters for evolution
+hyperneat/HyperNEAT/NEAT:								describes the evolutionary algorithm
+voxcad-code-2014/Voxelyze:								describes the soft body physics and execution of the fitness evaluation

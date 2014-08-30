@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<Voxelyze_Sim_Result Version="1.0">
+    <Fitness>
+        <FinalCOM_DistX>0.00960278</FinalCOM_DistX>
+        <FinalCOM_DistY>-0.0107869</FinalCOM_DistY>
+        <FinalCOM_DistZ>-0.000483102</FinalCOM_DistZ>
+    </Fitness>
+</Voxelyze_Sim_Result>

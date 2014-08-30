@@ -1,0 +1,81 @@
+// GENERAL EVOLUTIONARY PARAMETERS:
+//---------------------------------
+PopulationSize 30.0 						// population size
+MaxGenerations 1000.0	 					// max generations of evolution
+TournamentSize 2 							// size of tournament for selection (note: larger tournaments = more selection pressure)
+RandomSeed -1.0 							// note: this will be overwritten with your -R [seed] command line arguement (-1 uses the current time as your seed)
+
+
+// HyperNEAT SPECIFIC PARAMETERS:
+//-------------------------------
+SpeciesSizeTarget 1.0    					// the number of independent species maintined within a run (this should be called NumSpeciesTarget) (set to 1 by default to remove speciation)
+SurvivalThreshold 1.0  						// the fraction of a species allowed to reproduce (set as 1.0 by default to let all species reproduce)
+CompatibilityThreshold 60.0 				// minimum compatabilty between new indidvidual and best of species be considered part of the species
+CompatibilityModifier 30 					// magnitidue of effect on compatability threshold if species is larger or smaller than desired (set arbitrarily high to help make one species)
+DisjointCoefficient 2.0 					// coefficient for disjoint differnce (links that are different) when calculating compatability between two genomes
+ExcessCoefficient 2.0 						// coefficient for excess differnce (difference in the total number of links) when calculating compatability between two genomes
+WeightDifferenceCoefficient 1.0 			// coefficient for weight differnce (difference in weight if links are the same topology) when calculating compatability between two genomes
+FitnessCoefficient 0.0 						// coefficient for fitness differnce when calculating compatability between two genomes
+
+AgeSignificance 1.0 						// give fitness boost to new individuals (less than 10 generations old) (fitness boost multiplier set to 1 for no boost by deafault)
+AdultLinkAge 1.0  							// set to 1so we never force mutate young links?
+DropoffAge 15000.0    						// significantly lower fitness of individuals who have gone this many gerations without a new improvement to encourage diversity 
+											// (set arbirtrarily high as default to never punish a species for being old)
+
+MutateAddNodeProbability 0.1 				// probability of adding a node to the network
+MutateAddLinkProbability 0.1 				// probability of adding a link to the network
+MutateDemolishLinkProbability 0.03 			// probabiliyy of setting a link weight to zero
+MutateLinkWeightsProbability 0.95 			// probability per individual that any links will be mutated
+MutateLinkProbability 0.8  					// if any links will be mutated (see MutateLinkWeightsProbability), this is the probability that each link will be mutated 
+MutationPower 0.2		 					// scales size of each link mutation
+LinkGeneMinimumWeightForPhentoype 0.0 		// links of weight less than this are treated as zero (set to 0 by default to include all links)
+MutateOnlyProbability 0.25 					// probability of performing mutation only -- done automatically if only one parent (default 0.25)
+											// (note: the complement of this is the probability of performing crossover)
+
+SmallestSpeciesSizeWithElitism 1.0 			// only apply elitism on species larger than this (set as 1 by default to use elitism in every species)
+ForceCopyGenerationChampion 1.0 			// set as 1 for true elitism
+MutateSpeciesChampionProbability 0.0 		// keep at 0 for true elitism
+OnlyAllowElitesToBreed 0 					// create new generation only as variants of the fittest individual of the last generation 
+
+AllowRecurrentConnections 0.0 				// if 0, only feed-forward links are considered
+AllowAddNodeToRecurrentConnection 0.0 		// if 0, nodes are not allowed to link back into themselves
+AllowSelfRecurrentConnections 0.0 			// allow self-recurrent connections
+
+AddBiasToHiddenNodes 0.0 					// use bias values for each node (this in not necessary since we include a bias input node instead)
+SignedActivation 1.0 						// if 1: activation occurs on [-1,1], if 0: activation occurs on [0,1]
+OnlyGaussianHiddenNodes 0.0 				// only allow gaussian activation functions for hidden nodes
+OnlySigmoidHiddenNodes 0.0 					// only allow sigmoid activation functions for hidden nodes
+ExtraActivationUpdates 9.0 					// extra iterations to upate the network in order to produce an stable output 
+ExtraActivationFunctions 1.0 				// probability of initializing a new hidden node with a random activation function (default: 1.0) 
+
+OnlySaveFinalPop 0 							// only save xml files of the CPPNs from the final generation (default: 0)
+
+ExperimentType 43.0 						// 43 = SoftbotsExperiment
+
+GenerationDumpModulo 10.0  					// depreciated: just ignore this
+ConvergenceStep 0 							// used for switching sub-experiments (ignore and leave as default 0)
+NeedToInjectFitnessValuesFromCommandLine 0 	// used only for ShapesExperiment: ignore
+StartVfFileIndexesAtOne 0 					// used only for ShapesExperiment: ignore
+SeedingSoDecrementByOne 0 					// used only for ShapesExperiment: ignore
+
+
+// SOFTBOT EVOLUTION SPECIFIC PARAMETERS:
+//---------------------------------------
+SaveVXAEvery 1.0  							// save the vxa files describing the soft robots every n generations (1: save all robots) 
+AlsoSaveFirstGens 20 						// regardless of SaveVXAEvery, this many gens always save their vxa files (since there is rapid development early in evolution)
+SaveAllChampVXAs 1.0 						// regardless of SaveVXAEvery, save the vxa for the best individuals of each generation
+PrintCPPNs 1.0 								// Also print txt files describing the CPPN genotype for each individual with a saved vxa
+
+VoxelSize 0.01  							// physical size of each voxel in CPPN space (default: 0.01)
+ActuationsPerSecond 20 						// frequency of volumetric expansion/contraction for muscle cells (default: 40)
+NumActuationCycles 40 						// the length of each evaluation simulation in terms of actuation cycles of muscles (default: 10)
+											// note: at 40 Hz actuation, the default simulation time is 0.25 seconds
+
+MaxStiffness 100 							// stiffness of most stiff voxels (note: higher values increase simulation time)
+
+MaxTotalVoxels 200							// maximum size of robots in voxels (compute time for simulation depends on this value)		
+MaxVoxelsChecked 10000						// total number of voxels to search before giving up on finding a robot and filling up all of the MaxTotalVoxels	
+
+PenaltyExp 1.0 								// exponent of fitness penalty adjustment (used to affect severity. 0: no penalty, higher number means more severe penalty )
+PenaltyType 1.0 							// apply fitness penalty multiplier to encourage sparser robots. 0: no penalty, 1: total voxels, 2: actuated voxels
+											// note: NOT multi-objective 	// fitness = fitness*(1.0-penaltyCounter/MaxTotalVoxels)^PenaltyExp

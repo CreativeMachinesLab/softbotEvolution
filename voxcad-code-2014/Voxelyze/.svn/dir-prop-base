@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 30
+*.sdf
+*.suo
+*.user
+Debug
+ipch
+
+END

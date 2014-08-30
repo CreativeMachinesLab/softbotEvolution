@@ -1,0 +1,123 @@
+Project(tinyxmldll)
+
+IF(MSVC)
+
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /EHsc /RTCsu /W3")
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /EHsc /RTCsu /W3")
+
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /EHsc")
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /EHsc")
+
+SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /EHsc")
+SET(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /EHsc")
+
+SET(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} /EHsc")
+SET(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} /EHsc")
+
+ELSE(MSVC)
+
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wno-unused-variable")
+SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -Wall -Wno-unused-variable")
+
+SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_DEBUG} -pg")
+SET(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_DEBUG} -pg")
+
+ENDIF(MSVC)
+
+IF(NOT MYPROJ_RAN_ONCE)
+   SET(MYPROJ_RAN_ONCE 1 CACHE INTERNAL "")
+
+	SET(
+	CMAKE_INSTALL_PREFIX
+	"${CMAKE_SOURCE_DIR}/out/"
+	CACHE
+	FILEPATH
+	"Install path prefix, prepended onto install directories."
+	FORCE
+	)
+
+	SET(
+	EXECUTABLE_OUTPUT_PATH
+	"${CMAKE_SOURCE_DIR}/out/"
+	CACHE
+	FILEPATH
+	"Single output directory for building all executables."
+	FORCE
+	)
+
+	SET(
+	LIBRARY_OUTPUT_PATH
+	"${CMAKE_SOURCE_DIR}/out/"
+	CACHE
+	FILEPATH
+	"Single output directory for building all libraries."
+	FORCE
+	)
+
+	SET(
+	CMAKE_BUILD_TYPE
+	"Release"
+	CACHE
+	STRING
+	"Description: Choose the type of build, options are: None(CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel."
+	FORCE
+	)
+
+ENDIF(NOT MYPROJ_RAN_ONCE)
+
+
+ADD_DEFINITIONS(
+-DTIXML_USE_STL
+-D_USE_MATH_DEFINES
+-DTINYXMLDLL_EXPORTS
+)
+
+SET(
+	ZLIB_INCLUDE
+	"../zlib"
+	CACHE
+	FILEPATH 
+	"zlib include Directory"
+)
+
+INCLUDE_DIRECTORIES(
+include
+${ZLIB_INCLUDE}
+)
+
+SET(
+	ZLIB_LIB
+	"${CMAKE_CURRENT_SOURCE_DIR}/../zlib/out"
+	CACHE
+	FILEPATH 
+	"zlib Library directory"
+	)
+
+LINK_DIRECTORIES(
+	${ZLIB_LIB}
+	)
+
+ADD_LIBRARY(
+	tinyxmldll 
+	SHARED
+
+	include/tinyxmldll.h
+
+	src/tinyxmldll.cpp
+	src/tinyxmlparserdll.cpp
+	src/tinyxmlerrordll.cpp
+)
+
+TARGET_LINK_LIBRARIES(
+	tinyxmldll
+
+	debug
+	zlib_d
+
+	optimized
+	zlib
+	)
+
+SET_TARGET_PROPERTIES(tinyxmldll PROPERTIES DEBUG_POSTFIX _d)
+
+

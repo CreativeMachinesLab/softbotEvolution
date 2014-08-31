@@ -42,6 +42,8 @@ $ ./BUILD_EVERYTHING.sh
 
 Step 2: Installing VoxCad
 -------------------------
+(Install Qt and QMake if you have not already done so)
+
 $ cd [rootdir]/voxcad-code-2014
 $ make
 (if you get the error: "make: *** No rule to make target..." , run $qmake, then $make)

@@ -20,7 +20,8 @@
 | () = comment                                    |
 +=================================================+
 
-* NOTE:  These instructions were made on a Linux system running Ubuntu *
+*** NOTE:  These instructions were made on a Linux system running Ubuntu ***
+           and gcc version 4.6.3
 
 
 Step 1: Installing HyperNEAT

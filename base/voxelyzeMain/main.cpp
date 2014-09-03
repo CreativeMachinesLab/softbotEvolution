@@ -58,10 +58,10 @@ int main(int argc, char *argv[])
 	while (not Simulator.StopConditionMet())
 	{
 		// do some reporting via the stdoutput if required:
-		if (Step%100 == 0.0 && print_scrn) //Only output every n time steps
+		if (Step%1000 == 0.0 && print_scrn) //Only output every n time steps
 		{
 			std::cout << "Time: " << Time << std::endl;
-			std::cout << "CM: " << Simulator.GetCM().x << std::endl;
+			std::cout << "CM: " << Simulator.GetCM().x << std::endl << std::endl;
 			
 			// std::cout << " \tVox 0 X: " << Vox0Pos.x << "mm" << "\tVox 0 Y: " << Vox0Pos.y << "mm" << "\tVox 0 Z: " << Vox0Pos.z << "mm\n";	//just display the position of the first voxel in the voxelarray
 			//std::cout << "Scale: " << Simulator.VoxArray[0].GetCurScale().x << std::endl;  // display the scale of voxel 0 as it (potentially) expands and contracts	

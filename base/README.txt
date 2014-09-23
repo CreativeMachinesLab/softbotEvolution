@@ -49,7 +49,7 @@ Step 2: Installing VoxCad
 $ cd [rootdir]/voxcad-code-2014
 $ make
 (if you get the error: "make: *** No rule to make target..." , run $qmake, then $make)
-
+(NOTE: You can skip this step and install the Voxelyze library only for simulation without visualization) 
 
 Step 3: Installing Voxelyze
 ---------------------------

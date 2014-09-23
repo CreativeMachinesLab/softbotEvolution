@@ -23,6 +23,10 @@
 *** NOTE:  These instructions were made on a Linux system running Ubuntu ***
            and gcc version 4.6.3
 
+           These instructions are a work in progress, if you have errors, 
+           please contact me so that I can help find a solution and update 
+           the instructions for future users.  Thank you!
+
 
 Step 1: Installing HyperNEAT
 ----------------------------

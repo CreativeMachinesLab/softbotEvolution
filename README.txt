@@ -1,7 +1,7 @@
 +============================================================================+
 | Softbot Evolution                                                          |
 | Nick Cheney                                                                |
-| contact: nac93@cornell.edu, http://www.ncheney.com/info/contact	     |
+| contact: nac93@cornell.edu, http://www.ncheney.com/contact	             |
 | 2014-08-25								     |
 |                                                                            |
 | please cite the following paper when using this code:                      |

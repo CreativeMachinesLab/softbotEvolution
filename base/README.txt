@@ -1,7 +1,7 @@
 +============================================================================+
 | Softbot Evolution                                                          |
 | Nick Cheney                                                                |
-| contact: nac93@cornell.edu, http://www.ncheney.com/info/contact	     |
+| contact: nac93@cornell.edu, http://www.ncheney.com/contact	             |
 | 2014-08-25								     |
 |                                                                            |
 | please cite the following paper when using this code:                      |
@@ -37,6 +37,7 @@ $ nano BUILD_EVERYTHING.sh
 (note: to build on more than one computer, you may need to make and rename copies of this file)
 
 2) build HyperNEAT
+$ ./BUILD_CLEAN.sh
 $ ./BUILD_EVERYTHING.sh
 (the HyperNEAT executable should appear in the folder: [rootdir]/hyperneat/out )
 (note: in some circumstances you may need to run "$ ./BUILD_CLEAN" first if you need to clear your cache of built files)

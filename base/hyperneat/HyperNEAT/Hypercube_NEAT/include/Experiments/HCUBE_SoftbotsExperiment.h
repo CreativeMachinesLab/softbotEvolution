@@ -152,6 +152,8 @@ namespace HCUBE
 				
 		bool converged(int generation);
 
+		bool outOfBoundingBox(double x, double y, double z);
+
 		double calculateFitnessAdjustment( vector< vector< vector< int > > > matrixForVoxelyze );
 
 		void moveFitnessFile( shared_ptr<const NEAT::GeneticIndividual> individual );

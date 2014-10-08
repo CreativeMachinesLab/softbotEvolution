@@ -2,6 +2,7 @@
 #include "Experiments/HCUBE_SoftbotsExperiment.h"
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 //#include "DigitalMatter.h"
 //#include "DM_FEA.h" 
 #include <stdio.h>
@@ -351,8 +352,16 @@ namespace HCUBE
 
 			fitness = pow(pow(FinalCOM_DistX,2)+pow(FinalCOM_DistY,2),0.5);  // in this example we are only looking for displacement in the X-Y plane
 			
-			// normalize the fitness from an absolute distance measure to display in the unity of "body lengths" (the largest dimension of the array holding the robot)
-			fitness = fitness/(max(num_x_voxels,max(num_y_voxels,num_z_voxels))*voxelSize);
+			if ( NEAT::Globals::getSingleton()->getParameterValue("FitnessNormalizedBySize") )
+			{
+				// normalize the fitness from an absolute distance measure to display in the unity of "body lengths" (the largest dimension of the array holding the robot)
+				fitness = fitness/(max(num_x_voxels,max(num_y_voxels,num_z_voxels))*voxelSize);
+			}
+			else
+			{
+				// normalize the fitness by voxel size only
+				fitness = fitness/voxelSize;
+			}
 
 			// cout << "Original Fitness from voxelyze: " << fitness << endl;
 
@@ -525,6 +534,26 @@ namespace HCUBE
 		return false;
 	}		
 
+	bool SoftbotsExperiment::outOfBoundingBox(double x, double y, double z) {
+		// check if voxel is out of bounding box parameter form Softbots.dat.  Floor and ceil are used instead of abs to allow for odd valued sizes
+		if ( NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX") > 0)
+		{
+			if ( x < floor(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX")/2)) { return true; }
+			if ( x > ceil(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX")/2)) { return true; }
+		}
+		if ( NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY") > 0)
+		{
+			if ( x < floor(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY")/2)) { return true; }
+			if ( x > ceil(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY")/2)) { return true; }
+		}
+		if ( NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ") > 0)
+		{
+			if ( x < floor(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ")/2)) { return true; }
+			if ( x > ceil(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ")/2)) { return true; }
+		}
+		return false;
+	}		
+
 	int SoftbotsExperiment::getMaterialAtThisVoxel(NEAT::FastNetwork <double> network, double x, double y, double z)
 	{	
 		network.reinitialize();	//reset CPPN
@@ -543,6 +572,7 @@ namespace HCUBE
 		// 2: Passive_Hard
 		// 3: Active_+
 		// 4: Active_-
+		if ( outOfBoundingBox(x,y,z) ) {return 0;}
 		if ( network.getValue("OutputMaterialOrEmpty") < 0) { return 0; } 
 		else 
 		{

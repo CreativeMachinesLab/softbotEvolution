@@ -219,6 +219,11 @@ namespace NEAT
         parameters.insert("SaveAllChampVXAs", 1.0);
         parameters.insert("PrintCPPNs", 0.0);
         parameters.insert("ActuationsPerSecond", 40.0);
+        parameters.insert("BoundingBoxX", 0.0);
+        parameters.insert("BoundingBoxY", 0.0);
+        parameters.insert("BoundingBoxZ", 0.0);
+        parameters.insert("FitnessNormalizedBySize", 0.0);
+
 
 		cacheParameters();
 

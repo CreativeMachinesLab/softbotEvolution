@@ -535,21 +535,21 @@ namespace HCUBE
 	}		
 
 	bool SoftbotsExperiment::outOfBoundingBox(double x, double y, double z) {
-		// check if voxel is out of bounding box parameter form Softbots.dat.  Floor and ceil are used instead of abs to allow for odd valued sizes
+		// check if voxel is out of bounding box parameter form Softbots.dat.  -1 is to account for the voxel at 0,0,0
 		if ( NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX") > 0)
 		{
-			if ( x < floor(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX")/2)) { return true; }
-			if ( x > ceil(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX")/2)) { return true; }
+			if ( x < -(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX")-1)/2*voxelSize) { return true; }
+			if ( x > NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxX")/2*voxelSize) { return true; }
 		}
 		if ( NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY") > 0)
 		{
-			if ( x < floor(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY")/2)) { return true; }
-			if ( x > ceil(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY")/2)) { return true; }
+			if ( y < -(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY")-1)/2*voxelSize) { return true; }
+			if ( y > NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxY")/2*voxelSize) { return true; }
 		}
 		if ( NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ") > 0)
 		{
-			if ( x < floor(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ")/2)) { return true; }
-			if ( x > ceil(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ")/2)) { return true; }
+			if ( z < -(NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ")-1)/2*voxelSize) { return true; }
+			if ( z > NEAT::Globals::getSingleton()->getParameterValue("BoundingBoxZ")/2*voxelSize) { return true; }
 		}
 		return false;
 	}		

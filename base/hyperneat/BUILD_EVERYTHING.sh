@@ -11,12 +11,15 @@
 # ==================================================================================================
 # If you do not have Boost, install now before continuing 
 #
-# boost_stage is the location of "libboost_filesystem.a", libboost_system.a", and "libboost_thread.a"
-# to find it, simply do:
-# $ cd /usr
-# $ find * | grep libboost_filesystem.a
+# "boost_stage" is the location of "libboost_filesystem.a", libboost_system.a", and "libboost_thread.a"
+# if you intalled boost via "apt-get install", to find it, simply do:
+#   $ find /usr/* | grep libboost_filesystem.a
+# you will similary have to find your "boost_root", do:
+#   $ find /usr/* | grep boost/shared_ptr.hpp
+# NOTE: if you intalled boost locally, replace "/usr/*" above with the location of your boost installation:
 #
 boost_stage=/usr/local/lib # change me!  
+boost_root=/usr/include    # change me!
 #===================================================================================================
 
 # Nothing after this point SHOULD need to be changed:

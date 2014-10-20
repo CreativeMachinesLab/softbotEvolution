@@ -67,13 +67,13 @@ SaveAllChampVXAs 1.0 				// regardless of SaveVXAEvery, save the vxa for the bes
 PrintCPPNs 1.0 					// Also print txt files describing the CPPN genotype for each individual with a saved vxa
 
 MaxTotalVoxels 1000				// maximum size of robots in voxels (compute time for simulation depends on this value)		
-BoundingBoxX 0 					// The size limit of the creature in the x-direction, default value of 0 means no limit.  
-BoundingBoxY 0 					// The size limit of the creature in the y-direction, default value of 0 means no limit.  
-BoundingBoxZ 0 					// The size limit of the creature in the z-direction, default value of 0 means no limit.  
+BoundingBoxX 10 					// The size limit of the creature in the x-direction, default value of 0 means no limit.  
+BoundingBoxY 10 					// The size limit of the creature in the y-direction, default value of 0 means no limit.  
+BoundingBoxZ 10					// The size limit of the creature in the z-direction, default value of 0 means no limit.  
 VoxelSize 0.01  				// physical size of each voxel in CPPN space (default: 0.01)
 
 ActuationsPerSecond 20 				// frequency of volumetric expansion/contraction for muscle cells (default: 40)
-NumActuationCycles 20 				// the length of each evaluation simulation in terms of actuation cycles of muscles (default: 10)
+NumActuationCycles 40 				// the length of each evaluation simulation in terms of actuation cycles of muscles (default: 10)
 						// note: at 40 Hz actuation, the default simulation time is 0.25 seconds
 
 MaxStiffness 100 				// stiffness of most stiff voxels (note: higher values increase simulation time)

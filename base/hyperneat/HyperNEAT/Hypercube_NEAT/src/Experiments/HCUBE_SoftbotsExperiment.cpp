@@ -13,7 +13,7 @@
 #include <tinyxml.h> // #include “tinyxml.h"?
 
 #ifdef VISUALIZESHAPES
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 #endif
 #include <sstream>
 #include <map>
@@ -284,9 +284,9 @@ namespace HCUBE
 			{
 				sleep(0.01);
 				// if the file hasn't been found in a long period of time, voxelyze may have become unstable and crashed, kill the simulations and assign minimum fitness so the whole program doesn't crash/hang.  
-				if ( double(end-start)/CLOCKS_PER_SEC > 120.0) // amount of time set arbitrarily.  For a more scalable value, make function of the number of voxels
+				if ( double(end-start)/CLOCKS_PER_SEC > 300.0) // amount of time set arbitrarily.  For a more scalable value, make function of the number of voxels
 				{
-					cout << "voxelyze hung after 120 seconds... assigning fitness of 0.000001"<<endl;
+					cout << "voxelyze hung after 300 seconds... assigning fitness of 0.000001"<<endl;
 
 					// find process and kill it.  Please optimize this better.
 					int exitCode3 = std::system("ps axu > /tmp/HnPsFile.txt"); // write system processes to file

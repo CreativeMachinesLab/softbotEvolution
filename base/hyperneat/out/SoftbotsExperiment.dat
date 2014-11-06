@@ -61,8 +61,8 @@ SeedingSoDecrementByOne 0 			// used only for ShapesExperiment: ignore
 
 // SOFTBOT EVOLUTION SPECIFIC PARAMETERS:
 //---------------------------------------
-SaveVXAEvery 1.0  				// save the vxa files describing the soft robots every n generations (1: save all robots) 
-AlsoSaveFirstGens 20 				// regardless of SaveVXAEvery, this many gens always save their vxa files (since there is rapid development early in evolution)
+SaveVXAEvery 5.0  				// save the vxa files describing the soft robots every n generations (1: save all robots) 
+AlsoSaveFirstGens 50 				// regardless of SaveVXAEvery, this many gens always save their vxa files (since there is rapid development early in evolution)
 SaveAllChampVXAs 1.0 				// regardless of SaveVXAEvery, save the vxa for the best individuals of each generation
 PrintCPPNs 1.0 					// Also print txt files describing the CPPN genotype for each individual with a saved vxa
 

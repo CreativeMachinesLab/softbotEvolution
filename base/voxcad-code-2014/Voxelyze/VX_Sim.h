@@ -112,6 +112,7 @@ public:
 	void DtFreeze(void) {OptimalDt = CalcMaxDt(); dt = DtFrac*OptimalDt; DtFrozen = true;}
 	void DtThaw(void) {DtFrozen = false;}
 
+	bool CmInitialized; //nac
 
 
 	//Simulator features:
@@ -159,8 +160,10 @@ public:
 //	void SetStopCondition(StopCondition StopConditionTypeIn = SC_NONE, vfloat StopConditionValueIn = 0.0) {SetStopConditionType(StopConditionTypeIn); SetStopConditionValue(StopConditionValueIn);}
 	void SetStopConditionType(StopCondition StopConditionTypeIn = SC_NONE) {StopConditionType = StopConditionTypeIn;}
 	void SetStopConditionValue(vfloat StopConditionValueIn = 0.0) {StopConditionValue = StopConditionValueIn;} 
-	StopCondition GetStopConditionType(void){return StopConditionType;}
+	void SetInitCmTime(vfloat _InitCmTime= 0.0) {InitCmTime = _InitCmTime;}
+	StopCondition GetStopConditionType(void){return StopConditionType;}	
 	vfloat GetStopConditionValue(void){return StopConditionValue;}
+	vfloat GetInitCmTime(void){return InitCmTime;}
 	bool StopConditionMet(void); //have we met the stop condition yet?
 
 	//Information about current state:
@@ -186,7 +189,9 @@ protected:
 	bool UpdateStats(std::string* pRetMessage = NULL); //returns false if simulation diverged...
 
 	StopCondition StopConditionType;
+
 	vfloat StopConditionValue;
+	vfloat InitCmTime;
 
 	void EnableEquilibriumMode(bool Enabled);
 

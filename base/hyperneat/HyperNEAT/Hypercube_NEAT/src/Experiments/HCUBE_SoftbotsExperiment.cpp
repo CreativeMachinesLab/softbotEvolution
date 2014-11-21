@@ -404,6 +404,10 @@ namespace HCUBE
 		if (genNum < NEAT::Globals::getSingleton()->getParameterValue("AlsoSaveFirstGens") or genNum % (int)NEAT::Globals::getSingleton()->getParameterValue("SaveVXAEvery")==0)
 		{
 			mkGenDir << "mkdir -p Gen_" << thisGenBuffer;
+		}
+		if (int(NEAT::Globals::getSingleton()->getParameterValue("PrintCPPNs")))
+		{
+			mkGenDir << "mkdir -p CPPNs/Gen_" << thisGenBuffer;
 		}			
 		int exitCode5 = std::system(mkGenDir.str().c_str());
 		
@@ -476,7 +480,7 @@ namespace HCUBE
 		char origFitBuffer[100];
 		sprintf(origFitBuffer, "%.8lf", origFitness);
 
-		cppnFileName << "CPPNs/cppnFor--Gen_" << genBuffer << "--adjFit_" << adjFitBuffer << "--origFit_" << origFitBuffer << "--md5_" << individual->getThismd5() << ".txt";
+		cppnFileName << "CPPNs/Gen_" << genBuffer << "/cppnFor--Gen_" << genBuffer << "--adjFit_" << adjFitBuffer << "--origFit_" << origFitBuffer << "--md5_" << individual->getThismd5() << ".txt";
 		ofstream network_file;        
 		network_file.open (cppnFileName.str().c_str(), ios::trunc );
 
@@ -725,6 +729,7 @@ namespace HCUBE
 <StopCondition>\n\
 <StopConditionType>2</StopConditionType>\n\
 <StopConditionValue>" << float(NEAT::Globals::getSingleton()->getParameterValue("NumActuationCycles"))/float(NEAT::Globals::getSingleton()->getParameterValue("ActuationsPerSecond")) /* from <TempPeriod> */ << "</StopConditionValue>\n\
+<InitCmTime>" << float(NEAT::Globals::getSingleton()->getParameterValue("InitCmCycles"))/float(NEAT::Globals::getSingleton()->getParameterValue("ActuationsPerSecond")) /* from <TempPeriod> */ << "</InitCmTime>\n\
 </StopCondition>\n\
 <GA>\n\
 <WriteFitnessFile>1</WriteFitnessFile>\n\

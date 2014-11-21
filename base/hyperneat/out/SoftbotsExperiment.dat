@@ -72,9 +72,10 @@ BoundingBoxY 10 					// The size limit of the creature in the y-direction, defau
 BoundingBoxZ 10					// The size limit of the creature in the z-direction, default value of 0 means no limit.  
 VoxelSize 0.01  				// physical size of each voxel in CPPN space (default: 0.01)
 
+InitCmCycles 10 					// the first n cycles of the simulation are ignored, and the pos at this time is used as the origin for the creature's displacement
 ActuationsPerSecond 20 				// frequency of volumetric expansion/contraction for muscle cells (default: 40)
-NumActuationCycles 40 				// the length of each evaluation simulation in terms of actuation cycles of muscles (default: 10)
-						// note: at 40 Hz actuation, the default simulation time is 0.25 seconds
+NumActuationCycles 50 				// the length of each evaluation simulation in terms of actuation cycles of muscles (default: 10)
+									// note: at 40 Hz actuation, the default simulation time is 0.25 seconds
 
 MaxStiffness 100 				// stiffness of most stiff voxels (note: higher values increase simulation time)
 

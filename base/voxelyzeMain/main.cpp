@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	while (not Simulator.StopConditionMet())
 	{
 		// do some reporting via the stdoutput if required:
-		if (Step%1000 == 0.0 && print_scrn) //Only output every n time steps
+		if (Step%100 == 0.0 && print_scrn) //Only output every n time steps
 		{
 			std::cout << "Time: " << Time << std::endl;
 			std::cout << "CM: " << Simulator.GetCM().x << std::endl << std::endl;

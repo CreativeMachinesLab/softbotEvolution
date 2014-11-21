@@ -214,7 +214,7 @@ namespace NEAT
         parameters.insert("AlsoSaveFirstGens", 100.0);
         parameters.insert("PenaltyType", 1.0);
         parameters.insert("PenaltyExp", 1.0);
-        parameters.insert("NumActuationCycles", 10);
+        parameters.insert("NumActuationCycles", 10.0);
         parameters.insert("MaxStiffness", 100.0);
         parameters.insert("SaveAllChampVXAs", 1.0);
         parameters.insert("PrintCPPNs", 0.0);
@@ -223,6 +223,7 @@ namespace NEAT
         parameters.insert("BoundingBoxY", 0.0);
         parameters.insert("BoundingBoxZ", 0.0);
         parameters.insert("FitnessNormalizedBySize", 0.0);
+        parameters.insert("InitCmCycles", 0.0);
 
 
 		cacheParameters();

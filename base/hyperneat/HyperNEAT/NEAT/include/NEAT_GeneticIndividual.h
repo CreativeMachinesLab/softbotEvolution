@@ -21,7 +21,9 @@ namespace NEAT
 			
 		double fitness;
 		double origFitness;
-		double Fitness2;
+		double fitness2;
+		int dominatedBy;
+		double diversity;
 		
 		int speciesID;
 		
@@ -132,7 +134,9 @@ namespace NEAT
 			inline void setFitness(double _fitness) { fitness = _fitness; }
 
 			void setOrigFitness(double _origFitness) { origFitness = _origFitness; }
-			void setFitness2(double _Fitness2) { Fitness2 = _Fitness2; }
+			void setFitness2(double _fitness2) { fitness2 = _fitness2; }
+			void setDominatedBy(int _dominatedBy) { dominatedBy = _dominatedBy; }
+			void setDiversity(double _diversity) { diversity = _diversity; }
 			
 			inline void reward(double _fitness) { fitness += _fitness; }
 			
@@ -140,7 +144,9 @@ namespace NEAT
       /////////////// GET FITNESS FUNCTIONS
 			inline double getFitness()        const { return fitness; }
 			inline double getOrigFitness()        const { return origFitness; }
-			inline double getFitness2()        const { return Fitness2; }
+			inline double getFitness2()        const { return fitness2; }
+			inline int getDominatedBy()        const { return dominatedBy; }
+			inline double getDiversity()        const { return diversity; }
 			inline bool   getMutatedAtBirth() const { return mutatedAtBirth; }
 			inline double getParent1Fitness() const { return parent1Fitness; }
 			inline double getParent2Fitness() const { return parent2Fitness; }

@@ -224,6 +224,10 @@ namespace NEAT
         parameters.insert("BoundingBoxZ", 0.0);
         parameters.insert("FitnessNormalizedBySize", 0.0);
         parameters.insert("InitCmCycles", 0.0);
+        parameters.insert("MinPercentVoxelsFilled", 0.0);
+        parameters.insert("MaxTotalVoxels", 1000.0);
+    
+        
 
 
 		cacheParameters();

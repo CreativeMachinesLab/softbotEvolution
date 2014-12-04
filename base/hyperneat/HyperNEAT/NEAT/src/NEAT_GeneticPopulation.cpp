@@ -283,7 +283,7 @@ namespace NEAT
 		//check that no org has fitness <= zero
 		for(int a=0;a<numParents;a++)
 		{
-			PRINT(generations[generations.size()-1/*onGeneration*/]->getIndividual(a)->getFitness());
+			// PRINT(generations[generations.size()-1/*onGeneration*/]->getIndividual(a)->getFitness());
 			
 			if(generations[generations.size()-1/*onGeneration*/]->getIndividual(a)->getFitness() < 1e-6)
 			{
@@ -590,50 +590,64 @@ namespace NEAT
         
         for (int a=0;a<generations[generations.size()-1/*onGeneration*/]->getIndividualCount();a++)
         {
-            shared_ptr<GeneticIndividual> ind = generations[generations.size()-1/*onGeneration*/]->getIndividual(a);
-            totalIndividualFitnessPrint+=ind->getFitness();
+            // shared_ptr<GeneticIndividual> ind = generations[generations.size()-1/*onGeneration*/]->getIndividual(a);
+            totalIndividualFitnessPrint += generations[generations.size()-1/*onGeneration*/]->getIndividual(a)->getFitness();
         }
 
-        double averageFitnessPrint = totalIndividualFitnessPrint/generations[generations.size()-1/*onGeneration*/]->getIndividualCount();
+        double averageFitness1Print = totalIndividualFitnessPrint/generations[generations.size()-1/*onGeneration*/]->getIndividualCount();
 
-        double totalIndividualOrigFitnessPrint =0; 
+        double totalIndividualFitness2Print =0; 
         
         for (int a=0;a<generations[generations.size()-1/*onGeneration*/]->getIndividualCount();a++)
         {
-            shared_ptr<GeneticIndividual> ind = generations[generations.size()-1/*onGeneration*/]->getIndividual(a);
-            totalIndividualOrigFitnessPrint+=ind->getOrigFitness();
+            // shared_ptr<GeneticIndividual> ind = generations[generations.size()-1/*onGeneration*/]->getIndividual(a);
+            totalIndividualFitness2Print += generations[generations.size()-1/*onGeneration*/]->getIndividual(a)->getFitness2();
         }
 
-        double averageOrigFitnessPrint = totalIndividualOrigFitnessPrint/generations[generations.size()-1/*onGeneration*/]->getIndividualCount();
+        double averageFitness2Print = totalIndividualFitness2Print/generations[generations.size()-1/*onGeneration*/]->getIndividualCount();
+
+        double totalIndividualNodePrint =0; 
+        
+        for (int a=0;a<generations[generations.size()-1/*onGeneration*/]->getIndividualCount();a++)
+        {
+            // shared_ptr<GeneticIndividual> ind = generations[generations.size()-1/*onGeneration*/]->getIndividual(a);
+            totalIndividualNodePrint += generations[generations.size()-1/*onGeneration*/]->getIndividual(a)->getOrigFitness();
+        }
+
+        double averageNodeCountPrint = totalIndividualNodePrint/generations[generations.size()-1/*onGeneration*/]->getIndividualCount();
 
         ofstream output_file;        
         output_file.open ("gen-Genchamp-AvgFit.txt", ios::app );
         if(onGeneration==0)
         {
             output_file << "# 1. generation\n";
-            output_file << "# 3. genChamp Adjusted Fitness\n";
-            output_file << "# 3. genChamp Original Fitness (Distance)\n";
+            // output_file << "# 3. genChamp Adjusted Fitness\n";
+            output_file << "# 2. genChamp Fitness1 (Maxmimize Distance)\n";
+            output_file << "# 3. genChamp Fitness2 (Minimize Voxels)\n";
             output_file << "# 4. genChamp Node Count\n";
-            output_file << "# 5. average Adjusted Fitness\n";
-            output_file << "# 5. average Original Fitness (Distance) \n";
+            output_file << "# 5. average Fitness1 (Maxmimize Distance)\n";
+            output_file << "# 6. average Fitness2 (Minimize Voxels)\n";
+            output_file << "# 7. average Node Count\n";
 			// output_file << "# 5. genChamp Direction Changes\n";
 			// if(generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getUserData()) output_file << "# 6. UserData (if you implemented it)\n";
             output_file << endl;
         }
 
         char generation [50];              sprintf(generation,              "%04i", onGeneration+1);
-        char genChampAdjustedFitness [50]; sprintf(genChampAdjustedFitness, "%06f", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getFitness());
-        char genChampOriginalFitness [50]; sprintf(genChampOriginalFitness, "%06f", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getOrigFitness());
+        char genChampFitness1 [50]; sprintf(genChampFitness1, "%06f", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getFitness());
+        char genChampFitness2 [50]; sprintf(genChampFitness2, "%06f", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getFitness2());
         char genChampNodeCount [50];       sprintf(genChampNodeCount,       "%04i", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getNodesCount());
-        char averageOriginalFitness [50];  sprintf(averageOriginalFitness,  "%06f", averageOrigFitnessPrint);
-        char averageAdjustedFitness [50];  sprintf(averageAdjustedFitness,  "%06f", averageFitnessPrint);
+        char averageFitness1 [50];  sprintf(averageFitness1,  "%06f", averageFitness1Print);
+        char averageFitness2 [50];  sprintf(averageFitness2,  "%06f", averageFitness2Print);
+        char averageNodeCount [50];  sprintf(averageNodeCount,  "%06f", averageNodeCountPrint);
 
         output_file << generation << " \t" 
-                    << genChampAdjustedFitness << " \t"
-                    << genChampOriginalFitness << " \t"
+                    << genChampFitness1 << " \t"
+                    << genChampFitness2 << " \t"
                     << genChampNodeCount << " \t"
-                    << averageOriginalFitness << " \t"
-                    << averageAdjustedFitness << " \t";
+                    << averageFitness1 << " \t"
+                    << averageFitness2 << " \t"
+                    << averageNodeCount << " \t";
 					// << generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getDirectionChanges();
 		
 					if(generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getUserData()) // not part of every experiment. 

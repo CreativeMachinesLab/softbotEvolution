@@ -92,14 +92,34 @@ namespace NEAT
 		
 		//set those invididuals beyond SurvivalThreshold percent of the species as not able to reproduce (supposed to filter the top SurvivalThreshold% of the species. 
 
+        // Sort by fitness (nac)
+        for (int a=0;a<(int)currentIndividuals.size();a++)
+        {
+            for (int b=0;b<((int)currentIndividuals.size()-(a+1));b++)
+            {
+                if (currentIndividuals[b]->getFitness()<currentIndividuals[b+1]->getFitness())
+                {
+                    shared_ptr<GeneticIndividual> ind = currentIndividuals[b];
+                    currentIndividuals[b] = currentIndividuals[b+1];
+                    currentIndividuals[b+1] = ind;
+                }
+            }
+        }
+
+        // PRINT(currentIndividuals.size());
+        // for (int i=0; i<currentIndividuals.size(); i++)
+        // {
+        //     PRINT(currentIndividuals[i]->getFitness());
+        // }
+
 		for (int a=lastIndex+1;a<(int)currentIndividuals.size();a++)
 		{ 
-			PRINT(a);
-			PRINT(currentIndividuals.size());
+			// PRINT(a);
+			// PRINT(currentIndividuals.size());
 			
 			currentIndividuals[a]->setCanReproduce(false);
-			cout << "jmc: this code is buggy: it disallows the last n percent of offspring to reproduce, but on a randomly ordered vector: so highly fit orgs can be disallowed" << endl;
-			exit(30);
+			// cout << "jmc: this code is buggy: it disallows the last n percent of offspring to reproduce, but on a randomly ordered vector: so highly fit orgs can be disallowed" << endl;
+			// exit(30);
 		}
 		
 
@@ -120,10 +140,10 @@ namespace NEAT
 
 		
 		//debugging: checking whether currentIndividuals is sorted by fitness
-		cout << "IS FITNESS SORTED" << endl;
+		cout << "IS FITNESS SORTED?  Can they reproduce?" << endl;
 		for (int a=0;a<(int)currentIndividuals.size();a++)
 		{ 
-			cout << a << ": " << currentIndividuals[a]->getFitness() << endl;
+			cout << a << ": " << currentIndividuals[a]->getFitness() << ": "<< currentIndividuals[a]->getCanReproduce() << endl;
 
 		}
 

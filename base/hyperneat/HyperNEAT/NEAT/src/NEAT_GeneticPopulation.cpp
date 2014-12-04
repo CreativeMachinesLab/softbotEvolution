@@ -625,8 +625,8 @@ namespace NEAT
         char genChampAdjustedFitness [50]; sprintf(genChampAdjustedFitness, "%06f", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getFitness());
         char genChampOriginalFitness [50]; sprintf(genChampOriginalFitness, "%06f", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getOrigFitness());
         char genChampNodeCount [50];       sprintf(genChampNodeCount,       "%04i", generations[generations.size()-1/*onGeneration*/]->getIndividual(0)->getNodesCount());
-        char averageOriginalFitness [50];  sprintf(averageOriginalFitness,  "%06f", averageFitnessPrint);
-        char averageAdjustedFitness [50];  sprintf(averageAdjustedFitness,  "%06f", averageOrigFitnessPrint);
+        char averageOriginalFitness [50];  sprintf(averageOriginalFitness,  "%06f", averageOrigFitnessPrint);
+        char averageAdjustedFitness [50];  sprintf(averageAdjustedFitness,  "%06f", averageFitnessPrint);
 
         output_file << generation << " \t" 
                     << genChampAdjustedFitness << " \t"

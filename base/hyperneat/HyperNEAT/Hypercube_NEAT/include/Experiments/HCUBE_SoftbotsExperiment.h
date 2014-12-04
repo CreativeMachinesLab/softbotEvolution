@@ -96,6 +96,7 @@ namespace HCUBE
         int numVoxelsX,numVoxelsY,numVoxelsZ;
         double fitness;
         double origFitness;
+        double fitness2;
         double bestFitnessThisGen;
         int genNum;
 

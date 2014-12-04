@@ -79,8 +79,9 @@ namespace HCUBE
     double SoftbotsExperiment::processEvaluation(shared_ptr<NEAT::GeneticIndividual> individual)
     {
 		fitness = 0.000001; // minimum fitness value (must be greater than zero)
+		fitness2 = 0.000001; // minimum fitness value (must be greater than zero)
 		individual->setOrigFitness(0.000001); // just record keeping, so that original fitness can record distnace after the actual fitness has been adjusted by penalties
-
+		individual->setFitness2(0.000001);
 
 		// Create Phenotype from CPPN ===========================================================================================================================
 
@@ -240,10 +241,11 @@ namespace HCUBE
 			pair<double, double> fits = fitnessLookup[md5sumString];
 			origFitness = fits.first; // before any fitness penalties
 			individual->setOrigFitness(origFitness);
-			fitness = fits.second; // after any fitness penaltiesint exitCode0 = std::system("mkdir champVXAs");
+			fitness2 = fits.second; // after any fitness penaltiesint exitCode0 = std::system("mkdir champVXAs");
 			cout << "This individual was already evaluated!" << endl;
 			
-			return fitness;
+			// return fitness;
+			return origFitness;
 		}
 
 		std::cout << "voxels filled: " << voxelsFilled << std::endl;
@@ -377,19 +379,22 @@ namespace HCUBE
 		individual->setOrigFitness(origFitness);
 
 		// adjust fitness by the penalty factor
-		fitness = fitness * calculateFitnessAdjustment( matrixForVoxelyze );
-					
+		// fitness = fitness * pow(1.0 - calculateFitnessAdjustment( matrixForVoxelyze )/NEAT::Globals::getSingleton()->getParameterValue("MaxTotalVoxels"),NEAT::Globals::getSingleton()->getParameterValue("PenaltyExp"));
+		fitness2 = calculateFitnessAdjustment(matrixForVoxelyze) / NEAT::Globals::getSingleton()->getParameterValue("MaxTotalVoxels");
+		individual->setFitness2(fitness2);
+
 		if (fitness < 0.000001) fitness = 0.000001;
 		if (fitness > 10000) fitness = 0.000001;
 
-		pair <double, double> fits (origFitness, fitness);	
+		pair <double, double> fits (origFitness, fitness2);	
 		fitnessLookup[md5sumString]=fits;
 
 		moveFitnessFile(individual);
 
 		// cout << "Adjusted Fitness: " << fitness << endl;
 
-		return fitness; 
+		// return fitness; 
+		return origFitness; 
     }
 	
 
@@ -401,15 +406,19 @@ namespace HCUBE
     	char thisGenBuffer [50];
 		sprintf(thisGenBuffer, "%04i", genNum);
 		std::ostringstream mkGenDir;
+		std::ostringstream mkCPPNDir;
 		if (genNum < NEAT::Globals::getSingleton()->getParameterValue("AlsoSaveFirstGens") or genNum % (int)NEAT::Globals::getSingleton()->getParameterValue("SaveVXAEvery")==0)
 		{
 			mkGenDir << "mkdir -p Gen_" << thisGenBuffer;
+			int exitCode5 = std::system(mkGenDir.str().c_str());
+			// PRINT(thisGenBuffer);
 		}
 		if (int(NEAT::Globals::getSingleton()->getParameterValue("PrintCPPNs")))
 		{
-			mkGenDir << "mkdir -p CPPNs/Gen_" << thisGenBuffer;
+			mkCPPNDir << "mkdir -p CPPNs/Gen_" << thisGenBuffer;
+			int exitCode6 = std::system(mkCPPNDir.str().c_str());
 		}			
-		int exitCode5 = std::system(mkGenDir.str().c_str());
+		// PRINT(mkGenDir.str().c_str());
 		
 		// =========================================================================================================
 		// process each individual within the group
@@ -627,7 +636,8 @@ namespace HCUBE
 			}
 		}
 
-		return pow(1.0 - penaltyCounter/NEAT::Globals::getSingleton()->getParameterValue("MaxTotalVoxels"),NEAT::Globals::getSingleton()->getParameterValue("PenaltyExp"));
+		// return pow(1.0 - penaltyCounter/NEAT::Globals::getSingleton()->getParameterValue("MaxTotalVoxels"),NEAT::Globals::getSingleton()->getParameterValue("PenaltyExp"));
+		return (double)penaltyCounter;
 	}
 
 	void SoftbotsExperiment::moveFitnessFile( shared_ptr<const NEAT::GeneticIndividual> individual )

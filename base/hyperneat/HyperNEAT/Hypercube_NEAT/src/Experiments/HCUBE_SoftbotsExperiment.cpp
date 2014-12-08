@@ -179,6 +179,22 @@ namespace HCUBE
 		if (voxelsFilled == 0 or voxelsFilled < (int)round(NEAT::Globals::getSingleton()->getParameterValue("MaxTotalVoxels") * NEAT::Globals::getSingleton()->getParameterValue("MinPercentVoxelsFilled")))
 		{
 			std::cout << "Only "<< voxelsFilled <<" voxels filled (" << (int)round(NEAT::Globals::getSingleton()->getParameterValue("MaxTotalVoxels") * NEAT::Globals::getSingleton()->getParameterValue("MinPercentVoxelsFilled")) << " required), returning minimum fitness." << std::endl;
+			
+			std::ostringstream moveToGenFolderCmd;
+			char genBuffer[100];
+			sprintf(genBuffer, "%04i", genNum);
+			
+			moveToGenFolderCmd  << "touch " 
+								<< "Gen_" << genBuffer 
+								<< "/" << NEAT::Globals::getSingleton()->getOutputFilePrefix() 
+								<< "--Gen_" << genBuffer
+								<< "--distFit_" << "0"
+								<< "--voxelFit_" << "1.1"
+								<< "--md5_" << "notEnoughVoxels"
+								<< ".vxa";
+
+			int exitCode8 = std::system(moveToGenFolderCmd.str().c_str());
+
 			return fitness;
 		}
 
@@ -245,10 +261,13 @@ namespace HCUBE
 		{
 			pair<double, double> fits = fitnessLookup[md5sumString];
 			origFitness = fits.first; // before any fitness penalties
+			fitness = origFitness;
 			individual->setOrigFitness(origFitness);
 			fitness2 = fits.second; // after any fitness penaltiesint exitCode0 = std::system("mkdir champVXAs");
 			individual->setFitness2(fitness2);
 			cout << "This individual was already evaluated!" << endl;
+
+			moveFitnessFile(individual);
 			
 			// return fitness;
 			return origFitness;
@@ -418,11 +437,11 @@ namespace HCUBE
 			mkGenDir << "mkdir -p Gen_" << thisGenBuffer;
 			int exitCode5 = std::system(mkGenDir.str().c_str());
 			// PRINT(thisGenBuffer);
-		}
-		if (int(NEAT::Globals::getSingleton()->getParameterValue("PrintCPPNs")))
-		{
-			mkCPPNDir << "mkdir -p CPPNs/Gen_" << thisGenBuffer;
-			int exitCode6 = std::system(mkCPPNDir.str().c_str());
+			if (int(NEAT::Globals::getSingleton()->getParameterValue("PrintCPPNs")))
+			{	
+				mkCPPNDir << "mkdir -p CPPNs/Gen_" << thisGenBuffer;
+				int exitCode6 = std::system(mkCPPNDir.str().c_str());
+			}
 		}			
 		// PRINT(mkGenDir.str().c_str());
 		

@@ -118,7 +118,11 @@ namespace NEAT
                 for (int b=0;b<(int)currentIndividuals.size();b++)
                 {
                     // HERE: MAXIMIZE FIRST OBJECTIVE, MINIMIZE SECOND
-                    if (a!=b and currentIndividuals[b]->getFitness() > currentIndividuals[a]->getFitness() and currentIndividuals[b]->getFitness2() < currentIndividuals[a]->getFitness2() )
+                    if (a!=b and (
+			// "dominated by" defined as better or equal on both measure, but not the equal on both
+			( currentIndividuals[b]->getFitness() > currentIndividuals[a]->getFitness() and currentIndividuals[b]->getFitness2() <= currentIndividuals[a]->getFitness2() ) or
+			( currentIndividuals[b]->getFitness() >= currentIndividuals[a]->getFitness() and currentIndividuals[b]->getFitness2() < currentIndividuals[a]->getFitness2() )
+			) )
                     {
                         currentIndividuals[a]->setDominatedBy( currentIndividuals[a]->getDominatedBy()+1 );
                     }
@@ -160,6 +164,7 @@ namespace NEAT
             }
 
             // PRINT TO DEBUG
+            cout << "distance fitness: voxelfitness: dominated by how many?" << endl;
             for (int a=0;a<(int)currentIndividuals.size();a++)
             {
                 cout << currentIndividuals[a]->getFitness() << ", " << currentIndividuals[a]->getFitness2() << ": " << currentIndividuals[a]->getDominatedBy() << endl;
@@ -203,7 +208,7 @@ namespace NEAT
 
 		
 		//debugging: checking whether currentIndividuals is sorted by fitness
-		cout << "IS FITNESS SORTED?  Can they reproduce?" << endl;
+		cout << "Individual Number: Fitness (check for sorting): Can they reproduce?" << endl;
 		for (int a=0;a<(int)currentIndividuals.size();a++)
 		{ 
 			cout << a << ": " << currentIndividuals[a]->getFitness() << ": "<< currentIndividuals[a]->getCanReproduce() << endl;
@@ -339,29 +344,39 @@ namespace NEAT
         int tournamentSize = Globals::getSingleton()->getParameterValue("TournamentSize");
 		int orgIndex = 0;
 		double bestFitSoFarInTourney = 0.0;
+		double bestDominatedByInTourney = 99999999;
 		int indexOfBestFitSoFarInTourney = 0;
 		
         for (int a=0;a<tournamentSize;a++)
         {
-            orgIndex = Globals::getSingleton()->getRandom().getRandomWithinRange(0,int(currentIndividuals.size()-1)); //get an index to an org in the population
-			shared_ptr<GeneticIndividual> org = currentIndividuals[orgIndex];
+            	orgIndex = Globals::getSingleton()->getRandom().getRandomWithinRange(0,int(currentIndividuals.size()-1)); //get an index to an org in the population
+		shared_ptr<GeneticIndividual> org = currentIndividuals[orgIndex];
             
-			if(!org->getCanReproduce())
-			{
-				//cout << "not counting this org" << endl;
-				a--;
-				continue;
-			}
-			
-			double orgFit = org->getFitness();
-			if(orgFit > bestFitSoFarInTourney)
-			{
-				bestFitSoFarInTourney = orgFit;
-				indexOfBestFitSoFarInTourney = orgIndex;
-			}
+		if(!org->getCanReproduce())
+		{
+			//cout << "not counting this org" << endl;
+			a--;
+			continue;
+		}
+		
+		// double orgFit = org->getFitness();
+		// if(orgFit > bestFitSoFarInTourney)
+	        
+		double dominatedBy = org->getDominatedBy();
+		double thisFitness = org->getFitness();
+		// nac: favoring high fitness individuals on pareto front.  Could also favor optimal spread or jut choose randomly.  
+        	//if( dominatedBy < bestDominatedByInTourney or (dominatedBy == bestDominatedByInTourney and thisFitness > bestFitSoFarInTourney) )
+		// this one randomly chooses along the pareto front.
+		if( dominatedBy < bestDominatedByInTourney or (dominatedBy == bestDominatedByInTourney and Globals::getSingleton()->getRandom().getRandomDouble() < NEAT::Globals::getSingleton()->getParameterValue("PopulationSize")) )
+		{
+			// bestFitSoFarInTourney = orgFit;
+                	bestFitSoFarInTourney = thisFitness;
+			bestDominatedByInTourney = dominatedBy;
+			indexOfBestFitSoFarInTourney = orgIndex;
+		}
         }
 
-		return indexOfBestFitSoFarInTourney;
+	return indexOfBestFitSoFarInTourney;
     }
 	
 	

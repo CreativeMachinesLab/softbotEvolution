@@ -188,9 +188,9 @@ namespace HCUBE
 								<< "Gen_" << genBuffer 
 								<< "/" << NEAT::Globals::getSingleton()->getOutputFilePrefix() 
 								<< "--Gen_" << genBuffer
-								<< "--distFit_" << "0"
-								<< "--voxelFit_" << "1.1"
-								<< "--md5_" << "notEnoughVoxels"
+								<< "--distFit_" << "0.00000000"
+								<< "--voxelFit_" << "1.10000000"
+								<< "--md5_" << "notEnoughVoxels" << individual
 								<< ".vxa";
 
 			int exitCode8 = std::system(moveToGenFolderCmd.str().c_str());

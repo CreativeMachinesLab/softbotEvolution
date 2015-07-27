@@ -226,6 +226,7 @@ namespace NEAT
         parameters.insert("InitCmCycles", 0.0);
         parameters.insert("MinPercentVoxelsFilled", 0.0);
         parameters.insert("MaxTotalVoxels", 1000.0);
+        parameters.insert("EnableSelfCollisions", 0.0);
     
         
 

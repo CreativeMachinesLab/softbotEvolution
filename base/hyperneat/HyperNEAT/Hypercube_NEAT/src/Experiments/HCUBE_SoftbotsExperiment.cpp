@@ -746,7 +746,7 @@ namespace HCUBE
 <SlowDampingZ>0.01</SlowDampingZ>\n\
 </Damping>\n\
 <Collisions>\n\
-<SelfColEnabled>0</SelfColEnabled>\n\
+<SelfColEnabled>" << int(NEAT::Globals::getSingleton()->getParameterValue("EnableSelfCollisions")) << "</SelfColEnabled>\n\
 <ColSystem>3</ColSystem>\n\
 <CollisionHorizon>2</CollisionHorizon>\n\
 </Collisions>\n\

@@ -85,3 +85,5 @@ FitnessNormalizedBySize 0.0 	// if true, fitness is normalized relative to the l
 PenaltyExp 1.0 					// exponent of fitness penalty adjustment (used to affect severity. 0: no penalty, higher number means more severe penalty )
 PenaltyType 0.0 				// apply fitness penalty multiplier to encourage sparser robots. 0: no penalty, 1: total voxels, 2: actuated voxels
 						// note: NOT multi-objective 	// fitness = fitness*(1.0-penaltyCounter/MaxTotalVoxels)^PenaltyExp
+
+EnableSelfCollisions 0.0 		// if off, robot will be able to pass through itself (but there is a significant computational savings in collision detection for this)

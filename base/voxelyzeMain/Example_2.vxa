@@ -28,16 +28,18 @@
 <Lines/>
 </CMesh>
 </SurfMesh>
-<SimStop>
-<SimStopTime>0.25</SimStopTime>
-<SimStopStep>1000000000</SimStopStep>
-</SimStop>
-<Fitness>
+<StopCondition>
+<!-- StopCondition 2 is Simulation Time (in seconds) -->
+<StopConditionType>2</StopConditionType>
+<StopConditionValue>0.25</StopConditionValue>
+</StopCondition>
+<GA>
 <!--Track the center of mass -->
-<TrackCOM>0</TrackCOM>
+<!-- <TrackCOM>0</TrackCOM> -->
 <!-- Specify the fitness filename that will be output -->
-<FitnessFileNm>Softbots--foo--Gen_1000--Ind_0x217fa60_fitness.xml</FitnessFileNm>
-</Fitness>
+<FitnessFileName>Change_Me_output.xml</FitnessFileName>
+<WriteFitnessFile>true</WriteFitnessFile>
+</GA>
 </Simulator>
 <Environment>
 <Fixed_Regions>

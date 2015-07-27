@@ -48,7 +48,8 @@ $ ./BUILD_EVERYTHING.sh
 
 Step 2: Installing VoxCad
 -------------------------
-(Install Qt and QMake if you have not already done so)
+(Install Qt and QMake if you have not already done so, specifically these packages: "libqt4-dev", "qt4-qmake", "libqwt-dev","freeglut3-dev","zlib1g-dev")
+
 
 $ cd [rootdir]/voxcad-code-2014
 $ make

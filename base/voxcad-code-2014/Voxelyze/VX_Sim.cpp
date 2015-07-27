@@ -997,18 +997,18 @@ vfloat CVX_Sim::CalcMaxDt(void)
 void CVX_Sim::UpdateCollisions(void) // Called every timestep to watch for collisions
 {
 	//self intersection accumulator
-	MaxDispSinceLastBondUpdate += abs(SS.MaxVoxVel*dt/LocalVXC.GetLatticeDim());
+	// MaxDispSinceLastBondUpdate += abs(SS.MaxVoxVel*dt/LocalVXC.GetLatticeDim());
 
-	if (CurColSystem == COL_BASIC_HORIZON || CurColSystem == COL_SURFACE_HORIZON){
-		if (MaxDispSinceLastBondUpdate > (CollisionHorizon-1.0)/2 || ColEnableChanged){ //if we want to check for self intersection (slow!)
-			ColEnableChanged = false;
-			CalcL1Bonds(CollisionHorizon); //doesn't need to be done every time...
-			MaxDispSinceLastBondUpdate = 0.0;
-		}
-	}
-	else { //if COL_BASIC || COL_SURFACE
+	// if (CurColSystem == COL_BASIC_HORIZON || CurColSystem == COL_SURFACE_HORIZON){
+	// 	if (MaxDispSinceLastBondUpdate > (CollisionHorizon-1.0)/2 || ColEnableChanged){ //if we want to check for self intersection (slow!)
+	// 		ColEnableChanged = false;
+	// 		CalcL1Bonds(CollisionHorizon); //doesn't need to be done every time...
+	// 		MaxDispSinceLastBondUpdate = 0.0;
+	// 	}
+	// }
+	// else { //if COL_BASIC || COL_SURFACE
 		CalcL1Bonds(CollisionHorizon);
-	}
+	// }
 }
 
 void CVX_Sim::UpdateMatTemps(void) //updates expansions for each material

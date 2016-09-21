@@ -106,7 +106,7 @@ $ nano SoftbotsExperiment.dat
 * MaxGenerations
 
 3) execute a run:
-$ ./HyperNEAT -I SoftbotsExperiment.dat -O [runName] -R [randomSeed]
+$ ./Hypercube_NEAT -I SoftbotsExperiment.dat -O [runName] -R [randomSeed]
 (note: to track fitness over time, look in the file named "gen-Genchamp-AvgFit.txt")
 (to view the evolved robots, simply import them as a simulation into the VoxCad GUI)
 

@@ -1,8 +1,8 @@
 +============================================================================+
 | Softbot Evolution                                                          |
 | Nick Cheney                                                                |
-| contact: nac93@cornell.edu, http://www.ncheney.com/contact	             |
-| 2014-08-25								     |
+| contact: nac93@cornell.edu, http://www.ncheney.com/contact                 |
+| 2014-08-25                                                                 |
 |                                                                            |
 | please cite the following paper when using this code:                      |
 |                                                                            |
@@ -31,14 +31,16 @@
 Step 1: Installing HyperNEAT
 ----------------------------
 (Install Boost and CMake if you have not already done so)
+(note: be sure to install the archive libaries as well with libboost-all-dev and not just libboost-dev)
+$ sudo apt-get install libboost-all-dev 
+$ sudo apt-get install cmake
 
 1) find where Boost lives and update the build script with that information:
-$ cd /usr
-$ find * | grep libboost_filesystem.a
+$ find /usr/* | grep libboost_filesystem.a
 (note the path leading up to "libboost_filesystem.a", and set it as "boost_stage" in:)
 $ cd [rootdir]/hyperneat
 $ nano BUILD_EVERYTHING.sh
-(note: to build on more than one computer, you may need to make and rename copies of this file)
+(note: to build on more than one computer, like a local machine and a cluster, you may need to make and rename copies of this file)
 
 2) build HyperNEAT
 $ ./BUILD_CLEAN.sh
@@ -48,8 +50,12 @@ $ ./BUILD_EVERYTHING.sh
 
 Step 2: Installing VoxCad
 -------------------------
-(Install Qt and QMake if you have not already done so, specifically these packages: "libqt4-dev", "qt4-qmake", "libqwt-dev","freeglut3-dev","zlib1g-dev")
-
+(Install Qt and QMake if you have not already done so)
+$ sudo apt-get install libqt4-dev
+$ sudo apt-get install qt4-qmake
+$ sudo apt-get install libqwt-dev
+$ sudo apt-get install freeglut3-dev
+$ sudo apt-get install zlib1g-dev
 
 $ cd [rootdir]/voxcad-code-2014
 $ make
